@@ -1,2 +1,2 @@
 # eduportal-backend
-REST API backend for EduPortal LMS | Spring Boot, Spring Security, JWT, Postgresql
+REST API backend for EduPortal LMS | Spring Boot, Spring Security, JWT, Postgresql, Spring MVC
