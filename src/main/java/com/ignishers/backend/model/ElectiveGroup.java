@@ -1,8 +1,6 @@
 package com.ignishers.backend.model;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
@@ -10,6 +8,9 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.experimental.SuperBuilder;
+
+import java.util.ArrayList;
+import java.util.List;
 
 @NoArgsConstructor
 @SuperBuilder
@@ -20,15 +21,28 @@ import lombok.experimental.SuperBuilder;
 public class ElectiveGroup extends BaseEntity{
 
     @NotBlank(message = "Name can't be Empty")
-    @Column(nullable = false)
+    @Column(nullable = false, unique = true)
     private String name;
 
-    @NotBlank(message = "Name can't be Empty")
+    @NotBlank(message = "Elective group type is required")
     @Column(nullable = false)
     private String type;
 
-    @Min(value = 0, message = "Selection can't be Negative")
-    @NotNull(message = "Selection can't be Null")
+    @NotNull(message = "Min selection is required")
+    @Min(value = 0, message = "Min selection can't be negative")
     @Column(nullable = false)
     private Integer minSelection;
+
+    @OneToMany(
+            mappedBy = "electiveGroup",
+            cascade = CascadeType.ALL,
+            orphanRemoval = true,
+            fetch = FetchType.LAZY
+    )
+    private List<ElectiveSubject> electiveSubjects = new ArrayList<>();
+
+    public void addElectiveSubject(ElectiveSubject es) {
+        electiveSubjects.add(es);
+        es.setElectiveGroup(this);
+    }
 }

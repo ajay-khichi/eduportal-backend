@@ -12,11 +12,16 @@ import lombok.experimental.SuperBuilder;
 @Getter
 @Setter
 @Entity
-@Table(name = "semester_subject")
+@Table(
+        name = "semester_subject",
+        uniqueConstraints = @UniqueConstraint(
+                name = "uk_semester_subject",
+                columnNames = {"semester_id", "subject_id"}
+        )
+)
 public class SemesterSubject extends BaseEntity {
 
     @Column(nullable = false)
-    @NotNull
     private Boolean isElective = false;
 
     @ManyToOne(fetch = FetchType.LAZY)

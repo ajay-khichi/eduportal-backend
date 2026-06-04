@@ -8,12 +8,21 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.experimental.SuperBuilder;
 
+import java.util.ArrayList;
+import java.util.List;
+
 @Entity
 @Getter
 @Setter
 @NoArgsConstructor
 @SuperBuilder
-@Table(name = "semester")
+@Table(
+        name = "semester",
+        uniqueConstraints = @UniqueConstraint(
+                name = "uk_semester_number_curriculum",
+                columnNames = {"semester_number", "curriculum_id"}
+        )
+)
 public class Semester extends BaseEntity{
 
     @Column(nullable = false)
@@ -25,5 +34,16 @@ public class Semester extends BaseEntity{
     @JoinColumn(name = "curriculum_id", nullable = false)
     private Curriculum curriculum;
 
+    @OneToMany(
+            mappedBy = "semester",
+            cascade = CascadeType.ALL,
+            orphanRemoval = true,
+            fetch = FetchType.LAZY
+    )
+    private List<SemesterSubject> semesterSubjects = new ArrayList<>();
 
+    public void addSemesterSubject(SemesterSubject ss) {
+        semesterSubjects.add(ss);
+        ss.setSemester(this);
+    }
 }
