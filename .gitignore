@@ -42,6 +42,8 @@ atlassian-ide-plugin.xml
 *.log
 logs/
 spring-shell.log
+application-dev.properties
+application-prod.properties
 
 # ======================
 # JAVA
