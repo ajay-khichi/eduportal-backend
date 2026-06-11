@@ -1,4 +1,4 @@
-package com.ignishers.backend.model.common;
+package com.ignishers.backend.model.enums;
 
 public enum AttendanceType {
     THEORY, LAB, TUTORIAL
