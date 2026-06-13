@@ -3,10 +3,14 @@ package com.ignishers.backend.model.attendance;
 import com.ignishers.backend.model.common.BaseEntity;
 import jakarta.persistence.*;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
+import lombok.experimental.SuperBuilder;
 
 @Getter
 @Setter
+@NoArgsConstructor
+@SuperBuilder
 @Entity
 @Table(name = "attendance_verification")
 public class AttendanceVerification extends BaseEntity {

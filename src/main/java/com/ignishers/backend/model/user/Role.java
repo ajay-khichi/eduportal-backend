@@ -1,10 +1,8 @@
 package com.ignishers.backend.model.user;
 
 import com.ignishers.backend.model.common.BaseEntity;
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.Table;
-import jakarta.validation.constraints.NotBlank;
+import com.ignishers.backend.model.enums.RoleName;
+import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -18,8 +16,8 @@ import lombok.experimental.SuperBuilder;
 @Table(name = "role")
 public class Role extends BaseEntity {
 
-    @NotBlank(message = "Role name is required")
+    @Enumerated(EnumType.STRING)
     @Column(name = "role_name", nullable = false, unique = true)
-    private String roleName;
+    private RoleName roleName;
 
 }

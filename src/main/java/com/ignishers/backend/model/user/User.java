@@ -20,7 +20,8 @@ import java.util.List;
 @Setter
 @Entity
 @Table(name = "users")
-public class User extends BaseEntity {
+public class User extends BaseEntity{
+
 
     @Email(message = "Invalid email format")
     @NotBlank(message = "Email is required")
@@ -29,7 +30,7 @@ public class User extends BaseEntity {
 
     @NotBlank(message = "Password is required")
     @Column(nullable = false)
-    private String passwordHash;
+    private String password;
 
     @NotNull(message = "Account status is required")
     @Enumerated(EnumType.STRING)

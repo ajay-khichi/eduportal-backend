@@ -5,7 +5,9 @@ import com.ignishers.backend.model.organization.Classroom;
 import com.ignishers.backend.model.academic.SubjectOffering;
 import jakarta.persistence.*;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
+import lombok.experimental.SuperBuilder;
 
 import java.time.LocalDate;
 import java.time.LocalTime;
@@ -13,6 +15,8 @@ import java.time.LocalTime;
 @Getter
 @Setter
 @Entity
+@NoArgsConstructor
+@SuperBuilder
 @Table(
         name = "attendance_session",
         uniqueConstraints = @UniqueConstraint(

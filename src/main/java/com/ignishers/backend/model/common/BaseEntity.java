@@ -32,4 +32,9 @@ public abstract class BaseEntity {
     @Column(nullable = false)
     @Builder.Default
     private Boolean isDeleted = false;
+
+    @PrePersist
+    protected void onCreate() {
+        if (isDeleted == null) isDeleted = false;
+    }
 }

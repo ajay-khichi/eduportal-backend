@@ -7,6 +7,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.experimental.SuperBuilder;
 
+
 @SuperBuilder
 @NoArgsConstructor
 @Getter
@@ -16,12 +17,13 @@ import lombok.experimental.SuperBuilder;
         name = "user_role",
         uniqueConstraints = @UniqueConstraint(
                 name = "uk_user_role",
-                columnNames = {"users_id", "role_id"}
+                columnNames = {"user_id", "role_id"}
         )
 )
 public class UserRole extends BaseEntity {
+
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "users_id", nullable = false)
+    @JoinColumn(name = "user_id", nullable = false)
     private User user;
 
     @ManyToOne(fetch = FetchType.LAZY)
