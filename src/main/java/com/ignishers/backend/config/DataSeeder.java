@@ -175,7 +175,7 @@ public class DataSeeder implements CommandLineRunner {
         // 5. Users
         User adminUser = userRepository.save(User.builder()
                 .email("admin@test.com")
-                .password("hash")
+                .password("$2y$12$DcyzxMDmNJEtGOB9nzsg9.EO1HlCof5I4D1zjyRB9ES7lBCqeCHDK")
                 .accountStatus(AccountStatus.ACTIVE)
                 .build());
 
