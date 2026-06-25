@@ -24,6 +24,8 @@ import org.jspecify.annotations.NonNull;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.context.annotation.Profile;
 import org.springframework.stereotype.Component;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.security.crypto.password.PasswordEncoder;
 
 import java.time.*;
 import java.math.BigDecimal;
@@ -62,6 +64,13 @@ public class DataSeeder implements CommandLineRunner {
     private final StudentRepository studentRepository;
     private final UserRepository userRepository;
     private final UserRoleRepository userRoleRepository;
+    private final PasswordEncoder passwordEncoder;
+
+    @Value("${app.seeder.admin-password:password}")
+    private String adminPassword;
+
+    @Value("${app.seeder.default-password:password}")
+    private String defaultPassword;
 
     @Override
     public void run( String @NonNull ... args) {
@@ -72,7 +81,7 @@ public class DataSeeder implements CommandLineRunner {
 
     private void seedData() {
 
-        String timezone = "Asia/Kolkata";
+        String timezone = "UTC";
         // 1. Roles
         for (RoleName name : RoleName.values()) {
             if (!roleRepository.existsByRoleName(name)) {
@@ -175,7 +184,7 @@ public class DataSeeder implements CommandLineRunner {
         // 5. Users
         User adminUser = userRepository.save(User.builder()
                 .email("admin@test.com")
-                .password("$2y$12$DcyzxMDmNJEtGOB9nzsg9.EO1HlCof5I4D1zjyRB9ES7lBCqeCHDK")
+                .password(passwordEncoder.encode(adminPassword))
                 .accountStatus(AccountStatus.ACTIVE)
                 .build());
 
@@ -186,7 +195,7 @@ public class DataSeeder implements CommandLineRunner {
 
         User studentUser = userRepository.save(User.builder()
                 .email("student@test.com")
-                .password("hash")
+                .password(passwordEncoder.encode(defaultPassword))
                 .accountStatus(AccountStatus.ACTIVE)
                 .build());
 
@@ -209,7 +218,7 @@ public class DataSeeder implements CommandLineRunner {
 
         User facultyUser = userRepository.save(User.builder()
                 .email("faculty@test.com")
-                .password("hash")
+                .password(passwordEncoder.encode(defaultPassword))
                 .accountStatus(AccountStatus.ACTIVE)
                 .build());
 
@@ -223,7 +232,7 @@ public class DataSeeder implements CommandLineRunner {
                 .department(dept)
                 .name("Jane Doe")
                 .employeeCode("EMP01")
-                .status("Active")
+                .facultyStatus(FacultyStatus.ACTIVE)
                 .build());
 
         // 6. Student Enrollments & Section

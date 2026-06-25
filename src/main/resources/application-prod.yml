@@ -1,0 +1,11 @@
+spring:
+  jpa:
+    show-sql: false
+    hibernate:
+      ddl-auto: validate
+
+logging:
+  level:
+    root: warn
+    com.ignishers: info
+    org.springframework.security: warn

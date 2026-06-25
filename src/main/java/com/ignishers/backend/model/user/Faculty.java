@@ -2,6 +2,7 @@ package com.ignishers.backend.model.user;
 
 import com.ignishers.backend.model.academic.SubjectOffering;
 import com.ignishers.backend.model.common.BaseEntity;
+import com.ignishers.backend.model.enums.FacultyStatus;
 import com.ignishers.backend.model.organization.Department;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.*;
@@ -41,7 +42,8 @@ public class Faculty extends BaseEntity {
 
     @NotBlank(message = "Faculty status is required")
     @Column(nullable = false)
-    private String status;
+    @Enumerated(EnumType.STRING)
+    private FacultyStatus facultyStatus = FacultyStatus.ACTIVE;
     // e.g. "Active", "Retired"
 
     @OneToMany(mappedBy = "faculty", cascade = CascadeType.ALL,

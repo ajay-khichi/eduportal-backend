@@ -74,8 +74,7 @@ public class Student extends BaseEntity {
             orphanRemoval = true, fetch = FetchType.LAZY)
     private List<StudentSemesterEnrollment> semesterEnrollments = new ArrayList<>();
 
-    @OneToOne(mappedBy = "student", cascade = CascadeType.ALL,
-            fetch = FetchType.LAZY)
+    @OneToOne(mappedBy = "student", cascade = CascadeType.ALL)
     private StudentFaceData faceData;
 
 
