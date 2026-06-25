@@ -3,6 +3,7 @@ package com.ignishers.backend.model.organization;
 import com.ignishers.backend.model.common.BaseEntity;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -37,6 +38,7 @@ public class Department extends BaseEntity {
             cascade = CascadeType.ALL,
             orphanRemoval = true
     )
+    @Builder.Default
     private List<Program> programs = new ArrayList<>();
 
 //----------------------------------------------------------------------------------------

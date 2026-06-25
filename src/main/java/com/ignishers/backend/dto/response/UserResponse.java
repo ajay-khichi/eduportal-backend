@@ -1,5 +1,6 @@
 package com.ignishers.backend.dto.response;
 
+import com.ignishers.backend.model.user.UserRole;
 import lombok.Builder;
 import java.util.List;
 
@@ -7,7 +8,6 @@ import java.util.List;
 public record UserResponse(
         Long id,
         String email,
-        String name,
         String accountStatus,
-        List<String> roles
+        List<UserRole> roles
 ) {}

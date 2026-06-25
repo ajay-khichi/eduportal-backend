@@ -4,6 +4,7 @@ import com.ignishers.backend.model.common.BaseEntity;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotNull;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -41,6 +42,7 @@ public class Semester extends BaseEntity {
             orphanRemoval = true,
             fetch = FetchType.LAZY
     )
+    @Builder.Default
     private List<SemesterSubject> semesterSubjects = new ArrayList<>();
 
     public void addSemesterSubject(SemesterSubject ss) {

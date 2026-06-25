@@ -5,6 +5,7 @@ import com.ignishers.backend.model.organization.Program;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotNull;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -39,6 +40,7 @@ public class Curriculum extends BaseEntity {
     @JoinColumn(name = "session_id", nullable = false)
     private AcademicSession academicSession;
 
+    @Builder.Default
     @OneToMany(mappedBy = "curriculum", fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Semester> semesters = new ArrayList<>();
 

@@ -12,6 +12,7 @@ import jakarta.persistence.*;
 import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -64,14 +65,17 @@ public class Student extends BaseEntity {
     @NotNull(message = "Student status is required")
     @Enumerated(EnumType.STRING)
     @Column(nullable = false)
+    @Builder.Default
     private StudentStatus studentStatus = StudentStatus.ENROLLED;
 
     @OneToMany(mappedBy = "student", cascade = CascadeType.ALL,
             orphanRemoval = true, fetch = FetchType.LAZY)
+    @Builder.Default
     private List<StudentSection> studentSections = new ArrayList<>();
 
     @OneToMany(mappedBy = "student", cascade = CascadeType.ALL,
             orphanRemoval = true, fetch = FetchType.LAZY)
+    @Builder.Default
     private List<StudentSemesterEnrollment> semesterEnrollments = new ArrayList<>();
 
     @OneToOne(mappedBy = "student", cascade = CascadeType.ALL)

@@ -2,6 +2,7 @@ package com.ignishers.backend.model.academic;
 
 import com.ignishers.backend.model.common.BaseEntity;
 import jakarta.persistence.*;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -22,6 +23,7 @@ import lombok.experimental.SuperBuilder;
 public class SemesterSubject extends BaseEntity {
 
     @Column(nullable = false)
+    @Builder.Default
     private Boolean isElective = false;
 
     @ManyToOne(fetch = FetchType.LAZY)

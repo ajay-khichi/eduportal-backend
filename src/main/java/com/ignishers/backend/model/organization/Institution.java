@@ -29,6 +29,7 @@ public class Institution extends BaseEntity {
             cascade = CascadeType.ALL,
             orphanRemoval = true   // college ka institution ke bina koi existence nahi
     )
+    @Builder.Default
     private List<College> colleges = new ArrayList<>();
 
 

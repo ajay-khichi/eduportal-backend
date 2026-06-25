@@ -31,6 +31,7 @@ public class AcademicSession extends BaseEntity {
     @Column(nullable = false)
     private LocalDate endDate;
 
+    @Builder.Default
     @Column(nullable = false)
     private Boolean isActive = false;  // current vs past session
 }

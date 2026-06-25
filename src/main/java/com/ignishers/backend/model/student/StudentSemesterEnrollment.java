@@ -39,12 +39,14 @@ public class StudentSemesterEnrollment extends BaseEntity {
     @NotNull
     @Enumerated(EnumType.STRING)
     @Column(nullable = false)
+    @Builder.Default
     private SemEnrollStatus status = SemEnrollStatus.ACTIVE;
     // ACTIVE, BACKLOG, PROMOTED
 
     @OneToMany(mappedBy = "studentSemesterEnrollment",
             cascade = CascadeType.ALL, orphanRemoval = true,
             fetch = FetchType.LAZY)
+    @Builder.Default
     private List<StudentSubjectEnrollment> subjectEnrollments = new ArrayList<>();
 
     public void addSubjectEnrollment(StudentSubjectEnrollment sse) {

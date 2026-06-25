@@ -40,10 +40,12 @@ public class Section extends BaseEntity {
 
     @OneToMany(mappedBy = "section", cascade = CascadeType.ALL,
             orphanRemoval = true, fetch = FetchType.LAZY)
+    @Builder.Default
     private List<StudentSection> studentSections = new ArrayList<>();
 
     @OneToMany(mappedBy = "section", cascade = CascadeType.ALL,
             fetch = FetchType.LAZY)
+    @Builder.Default
     private List<SubjectOffering> subjectOfferings = new ArrayList<>();
 
     public void addStudentSection(StudentSection ss) {

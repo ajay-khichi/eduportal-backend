@@ -40,14 +40,16 @@ public class Faculty extends BaseEntity {
     // nullable — e.g. "Asst Prof", "Prof" — optional
     private String designation;
 
-    @NotBlank(message = "Faculty status is required")
+    @NotNull(message = "Faculty status is required")
     @Column(nullable = false)
     @Enumerated(EnumType.STRING)
+    @Builder.Default
     private FacultyStatus facultyStatus = FacultyStatus.ACTIVE;
     // e.g. "Active", "Retired"
 
     @OneToMany(mappedBy = "faculty", cascade = CascadeType.ALL,
             fetch = FetchType.LAZY)
+    @Builder.Default
     private List<SubjectOffering> subjectOfferings = new ArrayList<>();
 
     public void addSubjectOffering(SubjectOffering so) {

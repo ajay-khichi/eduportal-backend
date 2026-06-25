@@ -2,6 +2,7 @@ package com.ignishers.backend.model.attendance;
 
 import com.ignishers.backend.model.common.BaseEntity;
 import jakarta.persistence.*;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -19,11 +20,14 @@ public class AttendanceVerification extends BaseEntity {
     private StudentAttendance studentAttendance;
 
     @Column(name = "qr_verified", nullable = false)
+    @Builder.Default
     private Boolean qrVerified = false;
 
+    @Builder.Default
     @Column(name = "location_verified", nullable = false)
     private Boolean locationVerified = false;
 
+    @Builder.Default
     @Column(name = "face_verified", nullable = false)
     private Boolean faceVerified = false;
 

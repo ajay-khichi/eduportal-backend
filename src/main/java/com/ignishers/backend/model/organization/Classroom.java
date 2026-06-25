@@ -32,5 +32,6 @@ public class Classroom extends BaseEntity {
     private BigDecimal longitude;
 
     @Column(nullable = false)
+    @Builder.Default
     private Integer allowedRadiusMeters = 50;
 }

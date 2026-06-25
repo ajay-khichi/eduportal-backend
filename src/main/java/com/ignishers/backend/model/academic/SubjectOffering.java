@@ -38,6 +38,7 @@ public class SubjectOffering extends BaseEntity {
     @JoinColumn(name = "session_id", nullable = false)
     private AcademicSession academicSession;
 
+    @Builder.Default
     @OneToMany(mappedBy = "subjectOffering", cascade = CascadeType.ALL,
             orphanRemoval = true, fetch = FetchType.LAZY)
     private List<AttendanceSession> attendanceSessions = new ArrayList<>();

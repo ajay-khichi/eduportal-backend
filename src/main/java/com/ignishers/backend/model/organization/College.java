@@ -31,6 +31,7 @@ public class College extends BaseEntity {
             cascade = CascadeType.ALL,
             orphanRemoval = true
     )
+    @Builder.Default
     private List<Department> departments = new ArrayList<>();
 
 //    -----------------------------------------------------------------------------
