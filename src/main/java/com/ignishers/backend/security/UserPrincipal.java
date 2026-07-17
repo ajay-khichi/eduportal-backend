@@ -12,14 +12,14 @@ import org.springframework.security.core.userdetails.UserDetails;
 import java.util.Collection;
 
 @Getter
-public class UserPricipal implements UserDetails {
+public class UserPrincipal implements UserDetails {
     private final Long id;
     private final String email;
     private final String password;
     private final AccountStatus accountStatus;
     private final Collection<? extends GrantedAuthority> authorities;
 
-    public UserPricipal(User user) {
+    public UserPrincipal(User user) {
         this.id = user.getId();
         this.email = user.getEmail();
         this.password = user.getPassword();
@@ -32,8 +32,8 @@ public class UserPricipal implements UserDetails {
                 .toList();
     }
 
-    public static UserPricipal from(User user) {
-        return new UserPricipal(user);
+    public static UserPrincipal from(User user) {
+        return new UserPrincipal(user);
     }
 
 

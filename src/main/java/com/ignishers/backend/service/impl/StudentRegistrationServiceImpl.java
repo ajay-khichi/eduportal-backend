@@ -53,7 +53,7 @@ public class StudentRegistrationServiceImpl implements StudentRegistrationServic
         userRepository.save(user);
         studentRepository.save(student);
 
-        return authService.buildAuthResponse(user);
+        return authService.createAuthResponse(user);
     }
 
     private void validateEmailNotTaken(@NotBlank(message = "Email is required") @Email(message = "Email must be valid") String email) {

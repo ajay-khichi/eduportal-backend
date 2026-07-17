@@ -4,7 +4,7 @@ import com.ignishers.backend.dto.request.LoginRequest;
 import com.ignishers.backend.dto.response.AuthResponse;
 import com.ignishers.backend.model.user.*;
 import com.ignishers.backend.repository.user.UserRepository;
-import com.ignishers.backend.security.UserPricipal;
+import com.ignishers.backend.security.UserPrincipal;
 import com.ignishers.backend.service.AuthService;
 import com.ignishers.backend.service.RefreshTokenService;
 import com.ignishers.backend.util.JwtService;
@@ -28,16 +28,16 @@ public class AuthServiceImpl implements AuthService {
     private final UserMapper userMapper;
 
     @Override
+    @Transactional
     public AuthResponse login(LoginRequest request) {
         Authentication authentication =  authenticationManager.authenticate(
                 new UsernamePasswordAuthenticationToken(request.email(), request.password())
         );
 
-        UserDetails principal = (UserPricipal) authentication.getPrincipal();
-        assert principal != null;
+        UserDetails principal = (UserPrincipal) authentication.getPrincipal();
         User user = userRepository.findByEmail(principal.getUsername())
                 .orElseThrow(() -> new IllegalStateException("Authenticated user vanished from DB"));
-        return buildAuthResponse(user);
+        return buildAuthResponse(user, principal);
     }
 
     @Override
@@ -46,7 +46,7 @@ public class AuthServiceImpl implements AuthService {
         RefreshToken storedToken =  refreshTokenService.verifyAndGet(refreshToken);
         User user =  storedToken.getUser();
 
-        UserDetails principal =  UserPricipal.from(user);
+        UserDetails principal =  UserPrincipal.from(user);
         String newAccessToken = jwtService.generateAccessToken(principal);
 
         RefreshToken newRefreshToken = refreshTokenService.createRefreshToken(user);
@@ -66,8 +66,12 @@ public class AuthServiceImpl implements AuthService {
         refreshTokenService.deleteByUser(user);
     }
 
-    public AuthResponse buildAuthResponse(User user) {
-        UserDetails userDetails  = UserPricipal.from(user);
+    public AuthResponse createAuthResponse(User user) {
+        UserPrincipal principal = UserPrincipal.from(user);
+        return buildAuthResponse(user, principal);
+    }
+
+    public AuthResponse buildAuthResponse(User user, UserDetails userDetails) {
         String accessToken =  jwtService.generateAccessToken(userDetails);
         RefreshToken refreshToken = refreshTokenService.createRefreshToken(user);
 

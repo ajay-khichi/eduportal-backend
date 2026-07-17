@@ -52,8 +52,8 @@ app:
   # ── Public endpoints (no JWT required) ───────────────────
   security:
     public-urls:
-      - /api/v1/auth/**
-      - /api/v1/public/**
+      - /v1/auth/**
+      - /v1/public/**
 
 # ── Logging ───────────────────────────────────────────────
 logging:

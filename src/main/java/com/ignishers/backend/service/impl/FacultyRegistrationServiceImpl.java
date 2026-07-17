@@ -47,7 +47,7 @@ public class FacultyRegistrationServiceImpl implements FacultyRegistrationServic
         userRepository.save(user);
         facultyRepository.save(faculty);
 
-        return authService.buildAuthResponse(user);
+        return authService.createAuthResponse(user);
     }
 
     private void validateEmailNotTaken(@NotBlank(message = "Email is required") @Email(message = "Email must be valid") String email) {

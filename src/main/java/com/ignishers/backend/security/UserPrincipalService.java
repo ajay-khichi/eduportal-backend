@@ -20,7 +20,7 @@ public class UserPrincipalService implements UserDetailsService {
     @NonNull
     public UserDetails loadUserByUsername(@NonNull String username) throws UsernameNotFoundException {
         return userRepository.findByEmailWithRoles(username)
-                .map(UserPricipal::from)
+                .map(UserPrincipal::from)
                 .orElseThrow(() -> new UsernameNotFoundException("User not found: " + username));
     }
 }
