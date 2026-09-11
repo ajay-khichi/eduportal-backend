@@ -1,9 +1,9 @@
 spring:
   application:
     name: backend
-
   profiles:
-    active: dev
+    active:
+      - dev
 
   datasource:
     driver-class-name: org.postgresql.Driver
@@ -12,9 +12,9 @@ spring:
     password: ${DB_PASSWORD}
 
   jpa:
-    show-sql: true
+    show-sql: false
     hibernate:
-      ddl-auto: create
+      ddl-auto: validate
     properties:
       hibernate:
         format_sql: true
@@ -40,26 +40,70 @@ application:
         expiration: 604800000
 
 app:
-  # ── CORS (add your frontend origins) ──────────────────────
   cors:
-    allowed-origins:
-      - http://localhost:3000
-      - http://localhost:5173
     allowed-methods: GET,POST,PUT,PATCH,DELETE,OPTIONS
     allowed-headers: "*"
     allow-credentials: true
 
-  # ── Public endpoints (no JWT required) ───────────────────
   security:
     public-urls:
-      - /v1/auth/**
+      - /auth/**
       - /v1/public/**
 
-# ── Logging ───────────────────────────────────────────────
+logging:
+  pattern:
+    console: "%d{yyyy-MM-dd HH:mm:ss} [%thread] %-5level %logger{36} - %msg%n"
+
+
+---
+# ==========================================
+# DEVELOPMENT ENVIRONMENT
+# ==========================================
+spring:
+  config:
+    activate:
+      on-profile: dev
+
+  jpa:
+    show-sql: true
+    hibernate:
+      ddl-auto: update
+
+app:
+  cors:
+    allowed-origins:
+      - http://localhost:3000
+      - http://localhost:5173
+
 logging:
   level:
     root: INFO
     com.ignishers: DEBUG
+    org.hibernate.sql: DEBUG
     org.springframework.security: INFO
-  pattern:
-    console: "%d{yyyy-MM-dd HH:mm:ss} [%thread] %-5level %logger{36} - %msg%n"
+
+
+---
+# ==========================================
+# PRODUCTION ENVIRONMENT
+# ==========================================
+spring:
+  config:
+    activate:
+      on-profile: prod
+
+  jpa:
+    show-sql: false
+    hibernate:
+      ddl-auto: validate
+
+app:
+  cors:
+    allowed-origins:
+      - https://attendx.ignishers.in
+
+logging:
+  level:
+    root: WARN
+    com.ignishers: INFO
+    org.springframework.security: WARN
